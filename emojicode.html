@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>เข้ารหัส/ถอดรหัส Pigpen Cipher ด้วยอิโมจิ</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    /* รีเซ็ตสไตล์พื้นฐาน */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        background-color: #f7f7f7;
+        color: #333;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-weight: normal;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    textarea {
+        width: 100%;
+        min-height: 150px;
+        border: 1px solid #ccc;
+        padding: 15px;
+        font-size: 16px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        background-color: #fff;
+        resize: vertical;
+    }
+
+    button {
+        display: inline-block;
+        width: 23%;
+        padding: 15px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+
+    button.encode {
+        background-color: #3498db;
+        color: #fff;
+        margin-right: 2%;
+    }
+
+    button.decode {
+        background-color: #2ecc71;
+        color: #fff;
+        margin-right: 2%;
+    }
+
+    button.copy {
+        background-color: #e67e22;
+        color: #fff;
+        margin-right: 2%;
+    }
+
+    button.clear {
+        background-color: #e74c3c;
+        color: #fff;
+    }
+
+    @media (max-width: 600px) {
+        button {
+            width: 100%;
+            margin-right: 0;
+            margin-bottom: 10px;
+        }
+    }
+
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>เข้ารหัส/ถอดรหัส Pigpen Cipher ด้วยอิโมจิ</h1>
+
+    <textarea id="inputText" placeholder="กรอกข้อความที่ต้องการเข้ารหัสหรือถอดรหัส..."></textarea>
+
+    <div class="button-group">
+        <button class="encode" onclick="encode()">เข้ารหัส</button>
+        <button class="decode" onclick="decode()">ถอดรหัส</button>
+        <button class="copy" onclick="copyResult()">คัดลอกผลลัพธ์</button>
+        <button class="clear" onclick="clearText()">ล้างข้อความ</button>
+    </div>
+
+    <textarea id="outputText" placeholder="ผลลัพธ์จะแสดงที่นี่..." readonly></textarea>
+</div>
+
+<script>
+// ชุดตัวอักษรภาษาไทย
+const thaiConsonants = 'กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรลวศษสหฬอฮ';
+const thaiVowels = 'ะัาิีึืุูเแโใไๅ';
+const thaiTonemarks = '่้๊๋'; // วรรณยุกต์
+const thaiSpecials = '์ๆฯํ๎'; // อักขระพิเศษอื่นๆ
+const thaiNumerals = '๐๑๒๓๔๕๖๗๘๙'; // เลขไทย
+
+const thaiChars = thaiConsonants + thaiVowels + thaiTonemarks + thaiSpecials + thaiNumerals;
+
+// ตัวอักษรภาษาอังกฤษและอักขระพิเศษ
+const englishChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+const specialChars = '!@#$%^&*()_+-=[]{}|;:\'",.<>/?`~';
+
+// รวมตัวอักษรทั้งหมด
+const fullChars = thaiChars + englishChars + specialChars;
+
+// สร้างอาร์เรย์ของอิโมจิที่มีความหลากหลายมากขึ้น
+const pigpenEmojis = [
+    '😀','😁','😂','🤣','😃','😄','😅','😆','😉','😊',
+    '😋','😎','😍','😘','😗','😙','😚','🙂','🤗','🤩',
+    '🤔','🤨','😐','😑','😶','🙄','😏','😣','😥','😮',
+    '🤐','😯','😪','😫','😴','😌','😛','😜','😝','🤤',
+    '😒','😓','😔','😕','🙃','🤑','😲','☹️','🙁','😖',
+    '😞','😟','😤','😢','😭','😦','😧','😨','😩','🤯',
+    '😬','😰','😱','🥵','🥶','😳','🤪','😵','😡','😠',
+    '🤬','😷','🤒','🤕','🤢','🤮','🤧','😇','🥰','🤠',
+    '🤡','🥳','🥴','🥺','🤥','🤫','🤭','🧐','🤓','😈',
+    '👿','👹','👺','💀','👻','👽','🤖','💩','😺','😸',
+    '😹','😻','😼','😽','🙀','😿','😾','🐶','🐱','🐭',
+    '🐹','🐰','🦊','🐻','🐼','🐨','🐯','🦁','🐮','🐷',
+    '🐽','🐸','🐵','🙈','🙉','🙊','🐒','🐔','🐧','🐦',
+    '🐤','🐣','🐥','🦆','🦅','🦉','🦇','🐺','🐗','🐴',
+    '🦄','🐝','🐛','🦋','🐌','🐞','🐜','🦗','🕷','🕸',
+    '🦂','🐢','🐍','🦎','🦖','🦕','🐙','🦑','🦐','🦀',
+    '🐡','🐠','🐟','🐬','🐳','🐋','🦈','🐊','🐅','🐆',
+    '🦓','🦍','🐘','🦏','🐪','🐫','🦒','🦘','🐃','🐂',
+    '🐄','🐎','🐖','🐏','🐑','🐐','🐓','🦃','🕊','🐇',
+    '🐁','🐀','🐿','🦔','🐾','🐉','🐲','🌵','🎄','🌲',
+    '🌳','🌴','🌱','🌿','☘️','🍀','🎍','🎋','🍃','🍂',
+    '🍁','🍄','🌾','💐','🌷','🌹','🥀','🌺','🌸','🌼',
+    '🌻','🌞','🌝','🌛','🌚','🌜','🌙','⭐','🌟','💫',
+    '✨','⚡','☄️','💥','🔥','🌪','🌈','☀️','🌤','⛅',
+    '🌥','☁️','🌦','🌧','⛈','🌩','🌨','❄️','☃️','⛄',
+    '🌬','💨','💧','💦','☔','☂️','🌊','🌫','🍏','🍎',
+    '🍐','🍊','🍋','🍌','🍉','🍇','🍓','🍈','🍒','🍑',
+    '🥭','🍍','🥥','🥝','🍅','🍆','🥑','🥦','🥬','🥒',
+    '🌶','🌽','🥕','🥔','🍠','🥐','🍞','🥖','🥨','🧀',
+    '🥚','🍳','🥞','🥓','🥩','🍗','🍖','🌭','🍔','🍟',
+    '🍕','🥪','🥙','🌮','🌯','🥗','🥘','🍝','🍜','🍲',
+    '🍥','🥠','🍣','🍱','🍛','🍚','🍙','🍘','🍢','🍡',
+    '🍧','🍨','🍦','🥧','🧁','🍰','🎂','🍮','🍭','🍬',
+    '🍫','🍿','🍩','🍪','🌰','🥜','🍯','🥛','🍼','☕',
+    '🍵','🥤','🍶','🍺','🍻','🥂','🍷','🥃','🍸','🍹',
+    '🍾','🥄','🍴','🍽','🥣','🥡','🥢','🚗','🚕','🚙',
+    '🚌','🚎','🏎','🚓','🚑','🚒','🚐','🚚','🚛','🚜',
+    '🛴','🚲','🛵','🏍','🚨','🚔','🚍','🚘','🚖','🚡',
+    '🚠','🚟','🚃','🚋','🚞','🚝','🚄','🚅','🚈','🚂',
+    '🚆','🚇','🚊','🚉','✈️','🛫','🛬','🛩','💺','🛰',
+    '🚀','🛸','🚁','🛶','⛵','🚤','🛥','🛳','⛴','🚢',
+    '⚓','🚧','⛽','🚏','🚦','🚥','🗺','🗿','🗽','⛲',
+    '🗼','🏰','🏯','🎡','🎢','🎠','⛱','🏖','🏝','🌋',
+    '⛰','🏔','🗻','🏕','⛺','🏠','🏡','🏘','🏚','🏗',
+    '🏭','🏢','🏬','🏣','🏤','🏥','🏦','🏨','🏪','🏫',
+    '🏩','💒','🏛','⛪','🕌','🕍','🕋','⛩','🛤','🛣',
+    '🗾','🎑','🏞','🌅','🌄','🌠','🎇','🎆','🌇','🌆',
+    '🏙','🌃','🌌','🌉','🌁',
+    // คุณสามารถเพิ่มอิโมจิเข้าไปอีกตามต้องการ
+];
+
+// ตรวจสอบว่าจำนวนอิโมจิเพียงพอต่อจำนวนตัวอักษรหรือไม่
+if (pigpenEmojis.length < fullChars.length) {
+    alert('จำนวนอิโมจิไม่เพียงพอ กรุณาเพิ่มอิโมจิในอาร์เรย์ pigpenEmojis');
+}
+
+// สร้างแมปปิ้งระหว่างตัวอักษรกับอิโมจิ
+const charToEmoji = {};
+const emojiToChar = {};
+
+// ตัดอิโมจิให้มีจำนวนเท่ากับ fullChars
+const emojisToUse = pigpenEmojis.slice(0, fullChars.length);
+
+for (let i = 0; i < fullChars.length; i++) {
+    charToEmoji[fullChars[i]] = emojisToUse[i];
+    emojiToChar[emojisToUse[i]] = fullChars[i];
+}
+
+function encode() {
+    const input = document.getElementById('inputText').value;
+    let output = '';
+    for (const char of input) {
+        if (charToEmoji[char]) {
+            output += charToEmoji[char];
+        } else {
+            output += char; // เก็บตัวอักษรเดิมหากไม่มีในแมปปิ้ง
+        }
+    }
+    document.getElementById('outputText').value = output;
+}
+
+function decode() {
+    const input = document.getElementById('inputText').value;
+    let output = '';
+    let i = 0;
+    while (i < input.length) {
+        let char = input[i];
+        let nextChar = input[i + 1];
+        // ตรวจสอบอิโมจิที่ใช้หลายตัวอักษร
+        if (nextChar && emojiToChar[char + nextChar]) {
+            char += nextChar;
+            i++;
+        }
+        if (emojiToChar[char]) {
+            output += emojiToChar[char];
+        } else {
+            output += char;
+        }
+        i++;
+    }
+    document.getElementById('outputText').value = output;
+}
+
+function copyResult() {
+    const outputText = document.getElementById('outputText');
+    outputText.select();
+    outputText.setSelectionRange(0, 99999); // สำหรับอุปกรณ์มือถือ
+
+    document.execCommand('copy');
+    alert('คัดลอกผลลัพธ์เรียบร้อยแล้ว!');
+}
+
+function clearText() {
+    document.getElementById('inputText').value = '';
+    document.getElementById('outputText').value = '';
+}
+</script>
+
+</body>
+</html>
