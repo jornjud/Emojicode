@@ -187,7 +187,7 @@ function toggleGuide() {
 <script>
 // ชุดตัวอักษรภาษาไทย
 const thaiConsonants = 'กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรลวศษสหฬอฮ';
-const thaiVowels = 'ะัาิีึืุูเแโใไๅ';
+const thaiVowels = 'ะัาิีึืุูเแโใไๅำ';
 const thaiTonemarks = '่้๊๋'; // วรรณยุกต์
 const thaiSpecials = '์ๆฯํ๎'; // อักขระพิเศษอื่นๆ
 const thaiNumerals = '๐๑๒๓๔๕๖๗๘๙'; // เลขไทย
@@ -271,35 +271,40 @@ for (let i = 0; i < fullChars.length; i++) {
     emojiToChar[emojisToUse[i]] = fullChars[i];
 }
 
-// ฟังก์ชันสำหรับประมวลผลข้อความแบบเรียลไทม์
+// ฟังก์ชันตรวจสอบว่าเป็นอิโมจิหรือไม่
+function containsEmoji(text) {
+    const emojiRegex = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/u;
+    return emojiRegex.test(text);
+}
+
+// ปรับปรุงฟังก์ชัน processText ให้ตรวจสอบอิโมจิและเปลี่ยนโหมด
 function processText() {
-    const mode = document.querySelector('input[name="mode"]:checked').value;
     const input = document.getElementById('inputText').value;
+    
+    // ตรวจสอบว่ามีอิโมจิหรือไม่ ถ้ามีให้เปลี่ยนโหมดเป็นถอดรหัส
+    if (containsEmoji(input)) {
+        document.querySelector('input[value="decode"]').checked = true;
+    } else {
+        document.querySelector('input[value="encode"]').checked = true;
+    }
+    
+    const mode = document.querySelector('input[name="mode"]:checked').value;
     let output = '';
 
     if (mode === 'encode') {
         for (const char of input) {
-            if (charToEmoji[char]) {
-                output += charToEmoji[char];
-            } else {
-                output += char; // เก็บตัวอักษรเดิมหากไม่มีในแมปปิ้ง
-            }
+            output += charToEmoji[char] || char;
         }
     } else {
         let i = 0;
         while (i < input.length) {
             let char = input[i];
             let nextChar = input[i + 1];
-            // รวม surrogate pairs สำหรับอิโมจิที่มีความยาว 2 code units
             if (nextChar && emojiToChar[char + nextChar]) {
                 char += nextChar;
                 i++;
             }
-            if (emojiToChar[char]) {
-                output += emojiToChar[char];
-            } else {
-                output += char;
-            }
+            output += emojiToChar[char] || char;
             i++;
         }
     }
@@ -307,14 +312,8 @@ function processText() {
     document.getElementById('outputText').value = output;
 }
 
-// เพิ่ม Event Listener เพื่อแสดงผลลัพธ์แบบเรียลไทม์
+// เพิ่ม Event Listener ตรวจสอบการพิมพ์
 document.getElementById('inputText').addEventListener('input', processText);
-
-// เมื่อเปลี่ยนโหมดการทำงาน (เข้ารหัส/ถอดรหัส)
-const modeRadios = document.querySelectorAll('input[name="mode"]');
-modeRadios.forEach(radio => {
-    radio.addEventListener('change', processText);
-});
 
 function copyResult() {
     const outputText = document.getElementById('outputText');
