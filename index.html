@@ -1,334 +1,66 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<title>Emoji Code</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-    /* รีเซ็ตสไตล์พื้นฐาน */
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        background-color: #f7f7f7;
-        color: #333;
-        padding: 20px;
-    }
-
-    h1 {
-        text-align: center;
-        margin-bottom: 30px;
-        font-weight: normal;
-    }
-	
-	.toggle-guide {
-    background-color: #0d47a1;
-    color: #fff;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 10px;
-}
-
-.guide {
-    background-color: #e3f2fd;
-    padding: 15px;
-    border-radius: 8px;
-    margin-top: 10px;
-    font-size: 15px;
-}
-
-.guide h2, .guide h3 {
-    color: #0d47a1;
-    margin-bottom: 8px;
-}
-
-.guide ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-.guide ul li {
-    margin-bottom: 10px;
-}
-
-
-    .container {
-        max-width: 600px;
-        margin: 0 auto;
-    }
-
-    textarea {
-        width: 100%;
-        min-height: 150px;
-        border: 1px solid #ccc;
-        padding: 15px;
-        font-size: 16px;
-        margin-bottom: 20px;
-        border-radius: 5px;
-        background-color: #fff;
-        resize: vertical;
-    }
-
-    .options {
-        margin-bottom: 20px;
-        text-align: center;
-    }
-
-    .options label {
-        margin-right: 15px;
-        font-size: 16px;
-    }
-
-    button {
-        display: inline-block;
-        width: 48%;
-        padding: 15px;
-        font-size: 16px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-bottom: 20px;
-    }
-
-    button.copy {
-        background-color: #e67e22;
-        color: #fff;
-        margin-right: 4%;
-    }
-
-    button.clear {
-        background-color: #e74c3c;
-        color: #fff;
-    }
-
-    @media (max-width: 600px) {
-        button {
-            width: 100%;
-            margin-right: 0;
-            margin-bottom: 10px;
-        }
-    }
-
-</style>
+    <meta charset="UTF-8">
+    <title>Emoji Code</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ลิงก์ไปยังไฟล์ CSS ภายนอก -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<div class="container">
-    <h1>Emoji Code</h1>
-	
-	<!-- ปุ่มแสดง/ซ่อนคู่มือ -->
-<button class="toggle-guide" onclick="toggleGuide()">📖 แสดง/ซ่อน คู่มือการใช้งาน</button>
-
-<!-- เนื้อหาคู่มือ -->
-<div class="guide" id="guideContent" style="display: none;">
-    <h2>📖 คู่มือการใช้งาน</h2>
-    <p>👋 <strong>ยินดีต้อนรับเข้าสู่ Emojicode</strong>! เว็บนี้ให้คุณเข้ารหัสและถอดรหัสข้อความด้วยอีโมจิให้สนุกขึ้น!</p>
-    <h3>📌 ขั้นตอนการเข้ารหัสข้อความ</h3>
-    <ul>
-        <li><strong>กรอกข้อความ</strong> 👉 ในช่อง "กรอกข้อความที่ต้องการ..."</li>
-        <li><strong>เลือกโหมดการทำงาน</strong>:
+    <div class="container">
+        <h1>Emoji Code</h1>
+        
+        <!-- ปุ่มแสดง/ซ่อนคู่มือ -->
+        <button class="toggle-guide" onclick="toggleGuide()">📖 แสดง/ซ่อน คู่มือการใช้งาน</button>
+        
+        <!-- เนื้อหาคู่มือ -->
+        <div class="guide" id="guideContent" style="display: none;">
+            <h2>📖 คู่มือการใช้งาน</h2>
+            <p>👋 <strong>ยินดีต้อนรับเข้าสู่ Emojicode</strong>! เว็บนี้ให้คุณเข้ารหัสและถอดรหัสข้อความด้วยอีโมจิให้สนุกขึ้น!</p>
+            <h3>📌 ขั้นตอนการเข้ารหัสข้อความ</h3>
             <ul>
-                <li><strong>เข้ารหัส</strong> 🛠️ (เปลี่ยนข้อความเป็นอีโมจิ)</li>
-                <li><strong>ถอดรหัส</strong> 🔓 (แปลงอีโมจิกลับมาเป็นข้อความ)</li>
+                <li><strong>กรอกข้อความ</strong> 👉 ในช่อง "กรอกข้อความที่ต้องการ..."</li>
+                <li><strong>เลือกโหมดการทำงาน</strong>:
+                    <ul>
+                        <li><strong>เข้ารหัส</strong> 🛠️ (เปลี่ยนข้อความเป็นอีโมจิ)</li>
+                        <li><strong>ถอดรหัส</strong> 🔓 (แปลงอีโมจิกลับมาเป็นข้อความ)</li>
+                    </ul>
+                </li>
+                <li><strong>ผลลัพธ์</strong> 📝 จะปรากฏในช่องด้านล่างเมื่อคุณพิมพ์เสร็จ หรือสลับโหมดการทำงาน</li>
             </ul>
-        </li>
-        <li><strong>ผลลัพธ์</strong> 📝 จะปรากฏในช่องด้านล่างเมื่อคุณพิมพ์เสร็จ หรือสลับโหมดการทำงาน</li>
-    </ul>
 
-    <h3>🔧 ปุ่มเพิ่มเติมเพื่อการใช้งานง่าย</h3>
-    <ul>
-        <li><strong>คัดลอกผลลัพธ์</strong> 📋 กดปุ่ม "คัดลอกผลลัพธ์" เพื่อคัดลอกข้อความที่แปลงแล้ว</li>
-        <li><strong>ล้างข้อความ</strong> 🧹 กด "ล้างข้อความ" เพื่อลบทุกอย่างออกจากช่อง</li>
-    </ul>
+            <h3>🔧 ปุ่มเพิ่มเติมเพื่อการใช้งานง่าย</h3>
+            <ul>
+                <li><strong>คัดลอกผลลัพธ์</strong> 📋 กดปุ่ม "คัดลอกผลลัพธ์" เพื่อคัดลอกข้อความที่แปลงแล้ว</li>
+                <li><strong>ล้างข้อความ</strong> 🧹 กด "ล้างข้อความ" เพื่อลบทุกอย่างออกจากช่อง</li>
+            </ul>
 
-    <p>✨ <strong>เคล็ดลับเล็กๆ น้อยๆ</strong>:</p>
-    <ul>
-        <li>หากมีการอัปเดตอีโมจิใหม่ ๆ หรือปุ่มแชร์เพิ่มเติม จะมีการแจ้งให้ทราบ!</li>
-        <li>อย่าลืมบันทึกข้อความที่สำคัญก่อนปิดหน้าเว็บนะคะ 💾</li>
-    </ul>
-</div>
-
-<!-- JavaScript สำหรับการแสดง/ซ่อนคู่มือ -->
-<script>
-function toggleGuide() {
-    var guideContent = document.getElementById("guideContent");
-    if (guideContent.style.display === "none") {
-        guideContent.style.display = "block";
-    } else {
-        guideContent.style.display = "none";
-    }
-}
-</script>
-
-
-    <textarea id="inputText" placeholder="กรอกข้อความที่ต้องการ..."></textarea>
-
-    <div class="options">
-        <label><input type="radio" name="mode" value="encode" checked> เข้ารหัส</label>
-        <label><input type="radio" name="mode" value="decode"> ถอดรหัส</label>
-    </div>
-
-    <div class="button-group">
-        <button class="copy" onclick="copyResult()">คัดลอกผลลัพธ์</button>
-        <button class="clear" onclick="clearText()">ล้างข้อความ</button>
-    </div>
-
-    <textarea id="outputText" placeholder="ผลลัพธ์จะแสดงที่นี่..." readonly></textarea>
-</div>
-
-<script>
-// ชุดตัวอักษรภาษาไทย
-const thaiConsonants = 'กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรลวศษสหฬอฮ';
-const thaiVowels = 'ะัาิีึืุูเแโใไๅำ';
-const thaiTonemarks = '่้๊๋'; // วรรณยุกต์
-const thaiSpecials = '์ๆฯํ๎'; // อักขระพิเศษอื่นๆ
-const thaiNumerals = '๐๑๒๓๔๕๖๗๘๙'; // เลขไทย
-
-const thaiChars = thaiConsonants + thaiVowels + thaiTonemarks + thaiSpecials + thaiNumerals;
-
-// ตัวอักษรภาษาอังกฤษและอักขระพิเศษ
-const englishChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-const specialChars = '!@#$%^&*()_+-=[]{}|;:\'",.<>/?`~';
-
-// รวมตัวอักษรทั้งหมด
-const fullChars = thaiChars + englishChars + specialChars;
-
-// สร้างอาร์เรย์ของอิโมจิที่มีความหลากหลายมากขึ้น
-const pigpenEmojis = [
-    '😀','😁','😂','🤣','😃','😄','😅','😆','😉','😊',
-    '😋','😎','😍','😘','😗','😙','😚','🙂','🤗','🤩',
-    '🤔','🤨','😐','😑','😶','🙄','😏','😣','😥','😮',
-    '🤐','😯','😪','😫','😴','😌','😛','😜','😝','🤤',
-    '😒','😓','😔','😕','🙃','🤑','😲','☹️','🙁','😖',
-    '😞','😟','😤','😢','😭','😦','😧','😨','😩','🤯',
-    '😬','😰','😱','🥵','🥶','😳','🤪','😵','😡','😠',
-    '🤬','😷','🤒','🤕','🤢','🤮','🤧','😇','🥰','🤠',
-    '🤡','🥳','🥴','🥺','🤥','🤫','🤭','🧐','🤓','😈',
-    '👿','👹','👺','💀','👻','👽','🤖','💩','😺','😸',
-    '😹','😻','😼','😽','🙀','😿','😾','🐶','🐱','🐭',
-    '🐹','🐰','🦊','🐻','🐼','🐨','🐯','🦁','🐮','🐷',
-    '🐽','🐸','🐵','🙈','🙉','🙊','🐒','🐔','🐧','🐦',
-    '🐤','🐣','🐥','🦆','🦅','🦉','🦇','🐺','🐗','🐴',
-    '🦄','🐝','🐛','🦋','🐌','🐞','🐜','🦗','🕷','🕸',
-    '🦂','🐢','🐍','🦎','🦖','🦕','🐙','🦑','🦐','🦀',
-    '🐡','🐠','🐟','🐬','🐳','🐋','🦈','🐊','🐅','🐆',
-    '🦓','🦍','🐘','🦏','🐪','🐫','🦒','🦘','🐃','🐂',
-    '🐄','🐎','🐖','🐏','🐑','🐐','🐓','🦃','🕊','🐇',
-    '🐁','🐀','🐿','🦔','🐾','🐉','🐲','🌵','🎄','🌲',
-    '🌳','🌴','🌱','🌿','☘️','🍀','🎍','🎋','🍃','🍂',
-    '🍁','🍄','🌾','💐','🌷','🌹','🥀','🌺','🌸','🌼',
-    '🌻','🌞','🌝','🌛','🌚','🌜','🌙','⭐','🌟','💫',
-    '✨','⚡','☄️','💥','🔥','🌪','🌈','☀️','🌤','⛅',
-    '🌥','☁️','🌦','🌧','⛈','🌩','🌨','❄️','☃️','⛄',
-    '🌬','💨','💧','💦','☔','☂️','🌊','🌫','🍏','🍎',
-    '🍐','🍊','🍋','🍌','🍉','🍇','🍓','🍈','🍒','🍑',
-    '🥭','🍍','🥥','🥝','🍅','🍆','🥑','🥦','🥬','🥒',
-    '🌶','🌽','🥕','🥔','🍠','🥐','🍞','🥖','🥨','🧀',
-    '🥚','🍳','🥞','🥓','🥩','🍗','🍖','🌭','🍔','🍟',
-    '🍕','🥪','🥙','🌮','🌯','🥗','🥘','🍝','🍜','🍲',
-    '🍥','🥠','🍣','🍱','🍛','🍚','🍙','🍘','🍢','🍡',
-    '🍧','🍨','🍦','🥧','🧁','🍰','🎂','🍮','🍭','🍬',
-    '🍫','🍿','🍩','🍪','🌰','🥜','🍯','🥛','🍼','☕',
-    '🍵','🥤','🍶','🍺','🍻','🥂','🍷','🥃','🍸','🍹',
-    '🍾','🥄','🍴','🍽','🥣','🥡','🥢','🚗','🚕','🚙',
-    '🚌','🚎','🏎','🚓','🚑','🚒','🚐','🚚','🚛','🚜',
-    '🛴','🚲','🛵','🏍','🚨','🚔','🚍','🚘','🚖','🚡',
-    '🚠','🚟','🚃','🚋','🚞','🚝','🚄','🚅','🚈','🚂',
-    '🚆','🚇','🚊','🚉','✈️','🛫','🛬','🛩','💺','🛰',
-    '🚀','🛸','🚁','🛶','⛵','🚤','🛥','🛳','⛴','🚢',
-    '⚓','🚧','⛽','🚏','🚦','🚥','🗺','🗿','🗽','⛲',
-    '🗼','🏰','🏯','🎡','🎢','🎠','⛱','🏖','🏝','🌋',
-    '⛰','🏔','🗻','🏕','⛺','🏠','🏡','🏘','🏚','🏗',
-    '🏭','🏢','🏬','🏣','🏤','🏥','🏦','🏨','🏪','🏫',
-    '🏩','💒','🏛','⛪','🕌','🕍','🕋','⛩','🛤','🛣',
-    '🗾','🎑','🏞','🌅','🌄','🌠','🎇','🎆','🌇','🌆',
-    '🏙','🌃','🌌','🌉','🌁',
-    // คุณสามารถเพิ่มอิโมจิเข้าไปอีกตามต้องการ
-];
-
-// ตรวจสอบว่าจำนวนอิโมจิเพียงพอต่อจำนวนตัวอักษรหรือไม่
-if (pigpenEmojis.length < fullChars.length) {
-    alert('จำนวนอิโมจิไม่เพียงพอ กรุณาเพิ่มอิโมจิในอาร์เรย์ pigpenEmojis');
-}
-
-// สร้างแมปปิ้งระหว่างตัวอักษรกับอิโมจิ
-const charToEmoji = {};
-const emojiToChar = {};
-
-// ตัดอิโมจิให้มีจำนวนเท่ากับ fullChars
-const emojisToUse = pigpenEmojis.slice(0, fullChars.length);
-
-for (let i = 0; i < fullChars.length; i++) {
-    charToEmoji[fullChars[i]] = emojisToUse[i];
-    emojiToChar[emojisToUse[i]] = fullChars[i];
-}
-
-// ฟังก์ชันตรวจสอบว่าเป็นอิโมจิหรือไม่
-function containsEmoji(text) {
-    const emojiRegex = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/u;
-    return emojiRegex.test(text);
-}
-
-// ปรับปรุงฟังก์ชัน processText ให้ตรวจสอบอิโมจิและเปลี่ยนโหมด
-function processText() {
-    const input = document.getElementById('inputText').value;
+            <p>✨ <strong>เคล็ดลับเล็กๆ น้อยๆ</strong>:</p>
+            <ul>
+                <li>หากมีการอัปเดตอีโมจิใหม่ ๆ หรือปุ่มแชร์เพิ่มเติม จะมีการแจ้งให้ทราบ!</li>
+                <li>อย่าลืมบันทึกข้อความที่สำคัญก่อนปิดหน้าเว็บนะคะ 💾</li>
+            </ul>
+        </div>
+        
+        <textarea id="inputText" placeholder="กรอกข้อความที่ต้องการ..."></textarea>
     
-    // ตรวจสอบว่ามีอิโมจิหรือไม่ ถ้ามีให้เปลี่ยนโหมดเป็นถอดรหัส
-    if (containsEmoji(input)) {
-        document.querySelector('input[value="decode"]').checked = true;
-    } else {
-        document.querySelector('input[value="encode"]').checked = true;
-    }
+        <div class="options">
+            <label><input type="radio" name="mode" value="encode" checked> เข้ารหัส</label>
+            <label><input type="radio" name="mode" value="decode"> ถอดรหัส</label>
+        </div>
     
-    const mode = document.querySelector('input[name="mode"]:checked').value;
-    let output = '';
-
-    if (mode === 'encode') {
-        for (const char of input) {
-            output += charToEmoji[char] || char;
-        }
-    } else {
-        let i = 0;
-        while (i < input.length) {
-            let char = input[i];
-            let nextChar = input[i + 1];
-            if (nextChar && emojiToChar[char + nextChar]) {
-                char += nextChar;
-                i++;
-            }
-            output += emojiToChar[char] || char;
-            i++;
-        }
-    }
-
-    document.getElementById('outputText').value = output;
-}
-
-// เพิ่ม Event Listener ตรวจสอบการพิมพ์
-document.getElementById('inputText').addEventListener('input', processText);
-
-function copyResult() {
-    const outputText = document.getElementById('outputText');
-    outputText.select();
-    outputText.setSelectionRange(0, 99999); // สำหรับอุปกรณ์มือถือ
-
-    document.execCommand('copy');
-    alert('คัดลอกผลลัพธ์เรียบร้อยแล้ว!');
-}
-
-function clearText() {
-    document.getElementById('inputText').value = '';
-    document.getElementById('outputText').value = '';
-}
-</script>
-
+        <div class="button-group">
+            <button class="copy" onclick="copyResult()">คัดลอกผลลัพธ์</button>
+            <button class="clear" onclick="clearText()">ล้างข้อความ</button>
+        </div>
+    
+        <textarea id="outputText" placeholder="ผลลัพธ์จะแสดงที่นี่..." readonly></textarea>
+    </div>
+    
+    <!-- ลิงก์ไปยังไฟล์ JavaScript ภายนอก -->
+    <script src="script.js"></script>
+    
 </body>
 </html>

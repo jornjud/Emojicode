@@ -1,0 +1,110 @@
+/* รีเซ็ตสไตล์พื้นฐาน */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: normal;
+}
+
+.toggle-guide {
+    background-color: #0d47a1;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.guide {
+    background-color: #e3f2fd;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+.guide h2, .guide h3 {
+    color: #0d47a1;
+    margin-bottom: 8px;
+}
+
+.guide ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.guide ul li {
+    margin-bottom: 10px;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+textarea {
+    width: 100%;
+    min-height: 150px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background-color: #fff;
+    resize: vertical;
+}
+
+.options {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.options label {
+    margin-right: 15px;
+    font-size: 16px;
+}
+
+button {
+    display: inline-block;
+    width: 48%;
+    padding: 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+button.copy {
+    background-color: #e67e22;
+    color: #fff;
+    margin-right: 4%;
+}
+
+button.clear {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+@media (max-width: 600px) {
+    button {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}
